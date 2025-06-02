@@ -3,7 +3,7 @@
 #include <random>
 #include <string>
 #include <cerrno>
-#include <cstring> // Para strerror
+#include <cstring>
 
 void criar_arquivo(const std::string& caminho, size_t tamanho) {
     std::ofstream arquivo(caminho, std::ios::binary);
