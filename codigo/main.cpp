@@ -3,9 +3,11 @@
 #include <chrono>
 #include <cstring>
 #include <vector>
+#include <filesystem>
 
 #include "busca.h"
 #include "ordenacao.h"
+#include "gerador_dados.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -16,7 +18,8 @@ void mostrarMenu(){
     std::cout << "1. Arquivo Pequeno" << std::endl;
     std::cout << "2. Arquivo Médio" << std::endl;
     std::cout << "3. Arquivo Grande" << std::endl;
-    std::cout << "4. Sair" << std::endl;
+    std::cout << "4. Gerar Arquivos de Dados" << std::endl;
+    std::cout << "5. Sair" << std::endl;
     
     std::cout << "Escolha o arquivo que deseja ler: " << std::endl;
 }
@@ -42,11 +45,6 @@ void medirTempo(const std::string& nomeAlg,
               << "\nTempo: " << duracao.count() << " ms"
               << "\nComparações: " << cont.comparacoes
               << "\nTrocas: " << cont.trocas << std::endl;
-    
-    // Salva os dados ordenados
-    std::string caminho_saida = "../resultados/" + nomeAlg + "_" + nomeArquivo;
-    salvar_arquivo(caminho_saida, copia);
-    std::cout << "Arquivo salvo: " << caminho_saida << std::endl;
 }
 
 
@@ -55,8 +53,7 @@ int main() {
     vector<float> dados; //vetor que lê os dados (leitura será feita dentro dos casos de escolha)
 
     int escolha;
-    float alvo;
-
+    
     do {
         mostrarMenu();
         cin >> escolha;
@@ -67,20 +64,61 @@ int main() {
             switch(escolha) {
                 case 1: {
                     dados = ler_arquivo("../dados/pequeno.bin");
+                    Contador c;
+                    {   
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSort", SelectionSort, copia, "../dados/pequeno.bin");
+                        salvar_arquivo("../resultados/SelectionPequeno.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/pequeno.bin");
+                        salvar_arquivo("../resultados/SelectionOptPequeno.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSort", BubbleSort, copia, "../dados/pequeno.bin");
+                        salvar_arquivo("../resultados/BubblePequeno.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSortOptimized", BubbleSortOpt, copia, "../dados/pequeno.bin");
+                        salvar_arquivo("../resultados/BubbleOptPequeno.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("InsertionSort", InsertionSort, copia, "../dados/pequeno.bin");
+                        salvar_arquivo("../resultados/InsertionPequeno.bin", copia);
+                    }
 
-                    vector<float> copia(dados.begin(), dados.end());
+                    vector<float> copia = dados;
                     
-                    medirTempo("SelectionSort", SelectionSort, copia, "../dados/pequeno.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/pequeno.bin");
-                    medirTempo("BubbleSort", BubbleSort, copia, "../dados/pequeno.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/pequeno.bin");
-                    medirTempo("InsertionSort", InsertionSort, copia, "../dados/pequeno.bin");
-                    
+                    float alvo;
+                    cout << "\nDigite o valor a ser buscado: ";
+                    cin >> alvo;
+
+                    //Busca Sequencial
+                    auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
+                    if (posSeq != -1)
+                        cout << "Busca Sequencial: encontrado na posição " << posSeq << " em " << tempoSeq << "s\n";
+                    else
+                        cout << "Busca Sequencial: valor não encontrado (tempo: " << tempoSeq << "s)\n";
+
+                    // Ordenar antes da busca binária
+                    SelectionSort(copia.data(), copia.size(), c);
+
+                    auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
+                    if (posBin != -1)
+                        cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
+                    else
+                        cout << "Busca Binária: valor não encontrado (tempo: " << tempoBin << "s)\n";
+
+                    break;  
                 }
 
                 case 2: {
                     dados = ler_arquivo("../dados/pequeno.bin");
-                    
+                    Contador c;
                     vector<float> copia(dados.begin(), dados.end());
                     
                     medirTempo("SelectionSort", SelectionSort, copia, "../dados/medio.bin");
@@ -88,12 +126,33 @@ int main() {
                     medirTempo("BubbleSort", BubbleSort, copia, "../dados/medio.bin");
                     medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/medio.bin");
                     medirTempo("InsertionSort", InsertionSort, copia, "../dados/medio.bin");
+                    
+                    float alvo;
+                    cout << "\nDigite o valor a ser buscado: ";
+                    cin >> alvo;
 
+                    //Busca Sequencial
+                    auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
+                    if (posSeq != -1)
+                        cout << "Busca Sequencial: encontrado na posição " << posSeq << " em " << tempoSeq << "s\n";
+                    else
+                        cout << "Busca Sequencial: valor não encontrado (tempo: " << tempoSeq << "s)\n";
+
+                    // Ordenar antes da busca binária
+                    SelectionSort(copia.data(), copia.size(), c);
+
+                    auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
+                    if (posBin != -1)
+                        cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
+                    else
+                        cout << "Busca Binária: valor não encontrado (tempo: " << tempoBin << "s)\n";
+                        
+                    break;  
                 }
 
                 case 3: {
                     dados = ler_arquivo("../dados/pequeno.bin");
-                    
+                    Contador c;
                     vector<float> copia(dados.begin(), dados.end());
                     
                     medirTempo("SelectionSort", SelectionSort, copia, "../dados/grande.bin");
@@ -101,14 +160,39 @@ int main() {
                     medirTempo("BubbleSort", BubbleSort, copia, "../dados/grande.bin");
                     medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/grande.bin");
                     medirTempo("InsertionSort", InsertionSort, copia, "../dados/grande.bin");
+                    
+                    float alvo;
+                    cout << "\nDigite o valor a ser buscado: ";
+                    cin >> alvo;
 
-                
+                    //Busca Sequencial
+                    auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
+                    if (posSeq != -1)
+                        cout << "Busca Sequencial: encontrado na posição " << posSeq << " em " << tempoSeq << "s\n";
+                    else
+                        cout << "Busca Sequencial: valor não encontrado (tempo: " << tempoSeq << "s)\n";
+
+                    // Ordenar antes da busca binária
+                    SelectionSort(copia.data(), copia.size(), c);
+
+                    auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
+                    if (posBin != -1)
+                        cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
+                    else
+                        cout << "Busca Binária: valor não encontrado (tempo: " << tempoBin << "s)\n";
+                        
+                    break;  
                 }
 
                 case 4: {
-                    cout << "Saindo do Programa..." << endl;
-                    return 0;
+                    gerar();
+                    break;
                 }
+                case 5: {
+                    cout << "Saindo do Programa..." << endl;
+                    break;
+                }
+
                 default: {
                     cout << "Opção Invalida" << endl;
                 }

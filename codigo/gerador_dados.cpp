@@ -26,8 +26,8 @@ void criar_arquivo(const std::string& caminho, size_t tamanho) {
     std::cout << "Arquivo '" << caminho << "' criado com " << tamanho << " floats." << std::endl;
 }
 
-int main() {
-    criar_arquivo("../dados/pequeno.bin", 100'000);
+int gerar() {
+    criar_arquivo("../dados/pequeno.bin", 30'000);
     criar_arquivo("../dados/medio.bin",   2'000'000);
     criar_arquivo("../dados/grande.bin", 10'000'000);
     return 0;
