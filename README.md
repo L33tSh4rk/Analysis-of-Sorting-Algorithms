@@ -28,4 +28,43 @@ Para compilar o programa, use o comando:
 
 ```
 make
-´´´
+```
+
+isso gera o executável `programa`;
+
+Para limpar os arquivos objeto e o executável, use:
+
+```
+make clean
+```
+
+## Execução
+
+Após compilação, execute o programa com:
+
+```
+./programa
+```
+
+O programa executa os algoritmos e gera os arquivos de resultados.
+
+## Geração dos Gráficos
+
+Utilize o script Python `graficos.py` para ler os arquivos CSV gerados e criar gráficos de barras com:
+
+```
+python3 graficos.py
+```
+
+Os gráficos serão salvos na pasta `../images/`.
+
+## Dependências
+
+- Python 3
+- Pandas (`pip install pandas`) - caso não queira usar pip, instale manualmente via repositórios do sistema.
+- Matplotlib (`pip install matplotlib`)
+
+## Observações
+
+- Certifique-se que os arquivos binários de dados estão no caminho correto para serem lidos pelo programa.
+- Os gráficos gerados facilitam a comparação visual do desempenho dos algoritmos e buscas em diferentes tamanhos de arquivos.
