@@ -25,42 +25,6 @@ void mostrarMenu(){
     std::cout << "Escolha o arquivo que deseja ler: " << std::endl;
 }
 
-
-void medirTempo(const std::string& nomeAlg, 
-               void (*alg)(float*, int, Contador&),
-               const std::vector<float>& dados,
-               const std::string& nomeArquivo) 
-{
-    // Cria cópia dos dados para ordenação
-    std::vector<float> copia = dados;
-    Contador cont;
-    
-    // Executa e mede o tempo
-    auto inicio = std::chrono::high_resolution_clock::now();
-    alg(copia.data(), static_cast<int>(copia.size()), cont);
-    auto fim = std::chrono::high_resolution_clock::now();
-    
-    // Mostra resultados no console
-    auto duracao = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
-    long long tempo = duracao.count();
-
-    std::cout << "\n=== " << nomeAlg << " ==="
-              << "\nTempo: " << tempo << " ms"
-              << "\nComparações: " << cont.comparacoes
-              << "\nTrocas: " << cont.trocas << std::endl;
-    
-    std::ofstream saida("resultados.csv", std::ios::app);
-    if (saida.is_open()) {
-        saida << nomeAlg << "," << nomeArquivo << "," << tempo << "," 
-              << cont.comparacoes << "," << cont.trocas << "\n";
-        saida.close();
-    } else {
-        std::cerr << "Erro ao abrir o arquivo resultados.csv para escrita.\n";
-    }
-}
-
-
-
 int main() {
     vector<float> dados; //vetor que lê os dados (leitura será feita dentro dos casos de escolha)
 

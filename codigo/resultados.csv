@@ -14,3 +14,8 @@ BubbleSort,../dados/grande.bin,86048,16199910000,8105377733
 BubbleSortOptimized,../dados/grande.bin,86134,16199888264,8105377733
 InsertionSort,../dados/grande.bin,12982,8105557727,8105377733
 
+SelectionSort,../dados/pequeno.bin,87,112492500,14999
+SelectionSortOptimized,../dados/pequeno.bin,80,112492500,14992
+BubbleSort,../dados/pequeno.bin,510,112492500,56507097
+BubbleSortOptimized,../dados/pequeno.bin,480,112486059,56507097
+InsertionSort,../dados/pequeno.bin,91,56522086,56507097
