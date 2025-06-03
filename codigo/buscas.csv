@@ -1,0 +1,9 @@
+Tipo,Arquivo,Tempo(ms)
+Sequencial,../dados/pequeno.bin,8.058
+Binaria,../dados/pequeno.bin,0.705
+
+Sequencial,../dados/medio.bin,27.686
+Binaria,../dados/medio.bin,0.969
+
+Sequencial,../dados/grande.bin,116.488
+Binaria,../dados/grande.bin,1.254

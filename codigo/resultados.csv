@@ -1,0 +1,16 @@
+SelectionSort,../dados/pequeno.bin,78,112492500,14999
+SelectionSortOptimized,../dados/pequeno.bin,80,112492500,14986
+BubbleSort,../dados/pequeno.bin,497,112492500,56090639
+BubbleSortOptimized,../dados/pequeno.bin,478,112459347,56090639
+InsertionSort,../dados/pequeno.bin,91,56105627,56090639
+SelectionSort,../dados/medio.bin,1596,2449965000,69999
+SelectionSortOptimized,../dados/medio.bin,1635,2449965000,69985
+BubbleSort,../dados/medio.bin,14304,2449965000,1233056397
+BubbleSortOptimized,../dados/medio.bin,11841,2449923095,1233056397
+InsertionSort,../dados/medio.bin,2002,1233126385,1233056397
+SelectionSort,../dados/grande.bin,14610,16199910000,179999
+SelectionSortOptimized,../dados/grande.bin,13752,16199910000,179992
+BubbleSort,../dados/grande.bin,86048,16199910000,8105377733
+BubbleSortOptimized,../dados/grande.bin,86134,16199888264,8105377733
+InsertionSort,../dados/grande.bin,12982,8105557727,8105377733
+

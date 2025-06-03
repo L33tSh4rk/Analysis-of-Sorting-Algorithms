@@ -48,7 +48,7 @@ std::pair<int, double> executar_busca_sequencial(const std::vector<T>& vetor, co
     auto fim = std::chrono::high_resolution_clock::now(); // Marca o fim
 
     // Calcula a duração em segundos
-    std::chrono::duration<double> duracao = fim - inicio;
+    std::chrono::duration<double, std::milli> duracao = fim - inicio;
     return {posicao, duracao.count()};
 }
 
@@ -62,7 +62,7 @@ std::pair<int, double> executar_busca_binaria(const std::vector<T>& vetor, const
     int posicao = busca_binaria(vetor, alvo);
     auto fim = std::chrono::high_resolution_clock::now();
 
-    std::chrono::duration<double> duracao = fim - inicio;
+    std::chrono::duration<double, std::milli> duracao = fim - inicio;
     return {posicao, duracao.count()};
 }
 

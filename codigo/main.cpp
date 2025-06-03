@@ -42,10 +42,21 @@ void medirTempo(const std::string& nomeAlg,
     
     // Mostra resultados no console
     auto duracao = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+    long long tempo = duracao.count();
+
     std::cout << "\n=== " << nomeAlg << " ==="
-              << "\nTempo: " << duracao.count() << " ms"
+              << "\nTempo: " << tempo << " ms"
               << "\nComparações: " << cont.comparacoes
               << "\nTrocas: " << cont.trocas << std::endl;
+    
+    std::ofstream saida("resultados.csv", std::ios::app);
+    if (saida.is_open()) {
+        saida << nomeAlg << "," << nomeArquivo << "," << tempo << "," 
+              << cont.comparacoes << "," << cont.trocas << "\n";
+        saida.close();
+    } else {
+        std::cerr << "Erro ao abrir o arquivo resultados.csv para escrita.\n";
+    }
 }
 
 
@@ -66,6 +77,7 @@ int main() {
                 case 1: {
                     dados = ler_arquivo("../dados/pequeno.bin");
                     Contador c;
+                    auto inicio = std::chrono::high_resolution_clock::now();
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/pequeno.bin");
@@ -91,12 +103,17 @@ int main() {
                         medirTempo("InsertionSort", InsertionSort, copia, "../dados/pequeno.bin");
                         salvar_arquivo("../resultados/InsertionPequeno.bin", copia);
                     }
+                    auto fim = std::chrono::high_resolution_clock::now();
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
+                         << duracao2.count() << "ms)" << endl;
+                    
 
                     vector<float> copia = dados;
                     
-                    float alvo;
-                    cout << "\nDigite o valor a ser buscado: ";
-                    cin >> alvo;
+                    float alvo = dados[dados.size() / 2];
+                    cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
                     //Busca Sequencial
                     auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
@@ -120,6 +137,7 @@ int main() {
                 case 2: {
                     dados = ler_arquivo("../dados/medio.bin");
                     Contador c;
+                    auto inicio = std::chrono::high_resolution_clock::now();
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/medio.bin");
@@ -145,12 +163,16 @@ int main() {
                         medirTempo("InsertionSort", InsertionSort, copia, "../dados/medio.bin");
                         salvar_arquivo("../resultados/InsertionMedio.bin", copia);
                     }
+                    auto fim = std::chrono::high_resolution_clock::now();
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
+                         << duracao2.count() << "ms)" << endl;
 
                     vector<float> copia = dados;
                     
-                    float alvo;
-                    cout << "\nDigite o valor a ser buscado: ";
-                    cin >> alvo;
+                    float alvo = dados[dados.size() / 2];
+                    cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
                     //Busca Sequencial
                     auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
@@ -175,6 +197,7 @@ int main() {
                     
                     dados = ler_arquivo("../dados/grande.bin");
                     Contador c;
+                    auto inicio = std::chrono::high_resolution_clock::now();
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/grande.bin");
@@ -200,12 +223,16 @@ int main() {
                         medirTempo("InsertionSort", InsertionSort, copia, "../dados/grande.bin");
                         salvar_arquivo("../resultados/InsertionGrande.bin", copia);
                     }
+                    auto fim = std::chrono::high_resolution_clock::now();
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
+                         << duracao2.count() << "ms)" << endl;
 
                     vector<float> copia = dados;
                     
-                    float alvo;
-                    cout << "\nDigite o valor a ser buscado: ";
-                    cin >> alvo;
+                    float alvo = dados[dados.size() / 2];
+                    cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
                     //Busca Sequencial
                     auto [posSeq, tempoSeq] = executar_busca_sequencial(copia, alvo);
