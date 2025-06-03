@@ -106,10 +106,13 @@ void medirTempo(const std::string& nomeAlg,
     auto duracao = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
     long long tempo = duracao.count();
 
-    std::cout << "\n=== " << nomeAlg << " ==="
-              << "\nTempo: " << tempo << " ms"
-              << "\nComparações: " << cont.comparacoes
-              << "\nTrocas: " << cont.trocas << std::endl;
+    std::cout << "\n┌───────────────────────────────────────┐" << std::endl;
+    std::cout << "   Resultados do " << nomeAlg << std::endl;
+    std::cout << "├───────────────────────────────────────┤" << std::endl;
+    std::cout << "   Tempo de execução: " << tempo << "ms" << std::endl;
+    std::cout << "   Comparações:      " << cont.comparacoes << std::endl;
+    std::cout << "   Trocas:           " << cont.trocas << std::endl;
+    std::cout << "└───────────────────────────────────────┘" << std::endl;
     
     std::ofstream saida("resultados.csv", std::ios::app);
     if (saida.is_open()) {

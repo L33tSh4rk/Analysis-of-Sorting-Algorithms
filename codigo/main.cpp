@@ -12,18 +12,18 @@
 using namespace std;
 using namespace std::chrono;
 
-void mostrarMenu(){
-
-    std::cout << "\n===== MENU =====" << std::endl;
-    std::cout << "1. Arquivo Pequeno" << std::endl;
-    std::cout << "2. Arquivo Médio" << std::endl;
-    std::cout << "3. Arquivo Grande" << std::endl;
-    std::cout << "==================" << std::endl;
-    std::cout << "4. Gerar Arquivos de Dados Novamente" << std::endl;
-    std::cout << "5. Sair" << std::endl;
-    
-    std::cout << "Escolha o arquivo que deseja ler: " << std::endl;
-}
+void mostrarMenu() {
+    std::cout << "\n╔════════════════════════════╗" << std::endl;
+    std::cout << "║        MENU PRINCIPAL      ║" << std::endl;
+    std::cout << "╠════════════════════════════╣" << std::endl;
+    std::cout << "║  1. Arquivo Pequeno        ║" << std::endl;
+    std::cout << "║  2. Arquivo Médio          ║" << std::endl;
+    std::cout << "║  3. Arquivo Grande         ║" << std::endl;
+    std::cout << "║ ━━━━━━━━━━━━━━━━━━━━━━━━━━ ║" << std::endl;
+    std::cout << "║  4. Gerar Arquivos Novos   ║" << std::endl;
+    std::cout << "║  5. Sair                   ║" << std::endl;
+    std::cout << "╚════════════════════════════╝" << std::endl;
+    std::cout << "\n  ➤ Escolha uma opção: ";}
 
 int main() {
     vector<float> dados; //vetor que lê os dados (leitura será feita dentro dos casos de escolha)
@@ -226,7 +226,10 @@ int main() {
         }
 
     } while (escolha != 5);
-    std::cout << "Saindo do programa ..." << std::endl;
+    std::cout << "\n Finalizando sessão..." << std::endl;
+    std::cout << "\n╔════════════════════════════╗" << std::endl;
+    std::cout << "║    Programa encerrado      ║" << std::endl;
+    std::cout << "╚════════════════════════════╝" << std::endl << std::endl;
 
     return 0;
 }
