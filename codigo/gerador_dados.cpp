@@ -34,8 +34,8 @@ void criar_arquivo(const std::string& caminho, size_t tamanho) {
 }
 
 int gerar() {
-    criar_arquivo("../dados/pequeno.bin", 15'000);
-    criar_arquivo("../dados/medio.bin",   70'000);
-    criar_arquivo("../dados/grande.bin", 180'000);
+    criar_arquivo("../dados/pequeno.bin", 25'000);
+    criar_arquivo("../dados/medio.bin",   110'000);
+    criar_arquivo("../dados/grande.bin", 270'000);
     return 0;
 }

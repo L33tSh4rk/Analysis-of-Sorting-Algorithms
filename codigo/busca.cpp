@@ -7,33 +7,39 @@
 
 // Implementação da busca sequencial
 template <typename T>
-int busca_sequencial(const std::vector<T>& vetor, const T& alvo) {
+int busca_sequencial(const std::vector<T>& vetor, const T& alvo, int& comparacoes) {
+    comparacoes = 0; // Resetar contador
     for (size_t it = 0; it < vetor.size(); it++) {
+        comparacoes++; // Conta cada comparação
         if (vetor[it] == alvo) {
-            return static_cast<int>(it); // Retorna o índice se encontrado
+            return static_cast<int>(it);
         }
     }
-    return -1; // Não encontrado
+    return -1;
 }
 
 //Implementação da busca binária
 template <typename T>
-int busca_binaria(const std::vector<T>& vetor, const T& alvo) {
+int busca_binaria(const std::vector<T>& vetor, const T& alvo, int& comparacoes) {
+    comparacoes = 0; // Resetar contador
     int esq = 0;
     int dir = static_cast<int>(vetor.size()) - 1;
 
     while (esq <= dir) {
-        int meio = esq + (dir - esq) / 2;   // Ponto médio (evita overflow)
+        comparacoes++; // Conta a comparação do while
+        int meio = esq + (dir - esq) / 2;
 
+        comparacoes++; // Conta a próxima comparação
         if (vetor[meio] == alvo) {
-            return meio;                    // Elemento encontrado
+            return meio;
         } else if (vetor[meio] < alvo) {
-            esq = meio + 1;                 // Busca na metade direita
+            comparacoes++; // Conta a comparação do else if
+            esq = meio + 1;
         } else {
-            dir = meio - 1;                 // Busca na metade esquerda
+            dir = meio - 1;
         }
     }
-    return -1; // Não encontrado
+    return -1;
 }
 
 
@@ -42,14 +48,14 @@ int busca_binaria(const std::vector<T>& vetor, const T& alvo) {
 /*=====================================*/
 
 template <typename T>
-std::pair<int, double> executar_busca_sequencial(const std::vector<T>& vetor, const T& alvo) {
-    auto inicio = std::chrono::high_resolution_clock::now(); // Marca o início
-    int posicao = busca_sequencial(vetor, alvo);             // Executa a busca
-    auto fim = std::chrono::high_resolution_clock::now();    // Marca o fim
+std::tuple<int, double, int> executar_busca_sequencial(const std::vector<T>& vetor, const T& alvo) {
+    auto inicio = std::chrono::high_resolution_clock::now();
+    int comparacoes = 0;
+    int posicao = busca_sequencial(vetor, alvo, comparacoes);
+    auto fim = std::chrono::high_resolution_clock::now();
 
-    // Calcula a duração em segundos
     std::chrono::duration<double, std::milli> duracao = fim - inicio;
-    return {posicao, duracao.count()};
+    return {posicao, duracao.count(), comparacoes};
 }
 
 /*=====================================*/
@@ -57,13 +63,14 @@ std::pair<int, double> executar_busca_sequencial(const std::vector<T>& vetor, co
 /*=====================================*/
 
 template <typename T>
-std::pair<int, double> executar_busca_binaria(const std::vector<T>& vetor, const T& alvo) {
+std::tuple<int, double, int> executar_busca_binaria(const std::vector<T>& vetor, const T& alvo) {
     auto inicio = std::chrono::high_resolution_clock::now();
-    int posicao = busca_binaria(vetor, alvo);
+    int comparacoes = 0;
+    int posicao = busca_binaria(vetor, alvo, comparacoes);
     auto fim = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double, std::milli> duracao = fim - inicio;
-    return {posicao, duracao.count()};
+    return {posicao, duracao.count(), comparacoes};
 }
 
 
@@ -71,10 +78,10 @@ std::pair<int, double> executar_busca_binaria(const std::vector<T>& vetor, const
 // Instanciação explícita para float   //(para o linker encontrar as implementações e não retornar referência indefinida)
 /*=====================================*/
 
-template int busca_sequencial<float>(const std::vector<float>&, const float&);
-template int busca_binaria<float>(const std::vector<float>&, const float&);
-template std::pair<int, double> executar_busca_sequencial<float>(const std::vector<float>&, const float&);
-template std::pair<int, double> executar_busca_binaria<float>(const std::vector<float>&, const float&);
+template int busca_sequencial<float>(const std::vector<float>&, const float&, int&);
+template int busca_binaria<float>(const std::vector<float>&, const float&, int&);
+template std::tuple<int, double, int> executar_busca_sequencial<float>(const std::vector<float>&, const float&);
+template std::tuple<int, double, int> executar_busca_binaria<float>(const std::vector<float>&, const float&);
 
 
 
@@ -94,9 +101,9 @@ std::vector<float> ler_arquivo(const std::string& caminho) {
     }
 
     // Obtém o tamanho do arquivo
-    arquivo.seekg(0, std::ios::end);          // Vai para o final
+    arquivo.seekg(0, std::ios::end); // Vai para o final
     std::streampos tamanho = arquivo.tellg(); // Obtém a posição (tamanho)
-    arquivo.seekg(0, std::ios::beg);          // Volta para o início
+    arquivo.seekg(0, std::ios::beg); // Volta para o início
 
     // Calcula quantos floats existem no arquivo
     size_t num_floats = tamanho / sizeof(float);

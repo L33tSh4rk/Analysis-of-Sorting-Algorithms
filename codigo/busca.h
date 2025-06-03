@@ -14,19 +14,19 @@
 
 // Busca Sequencial (básica)
 template <typename T>
-int busca_sequencial(const std::vector<T>& vetor, const T& alvo);
+int busca_sequencial(const std::vector<T>& vetor, const T& alvo, int& comparacoes);
 
 // Busca Binária (requer vetor ordenado)
 template <typename T>
-int busca_binaria(const std::vector<T>& vetor, const T& alvo);
+int busca_binaria(const std::vector<T>& vetor, const T& alvo, int& comparacoes);
 
 // Busca Sequencial com medição de tempo
 template <typename T>
-std::pair<int, double> executar_busca_sequencial(const std::vector<T>& vetor, const T& alvo);
+std::tuple<int, double, int> executar_busca_sequencial(const std::vector<T>& vetor, const T& alvo);
 
 // Busca Binária com medição de tempo
 template <typename T>
-std::pair<int, double> executar_busca_binaria(const std::vector<T>& vetor, const T& alvo);
+std::tuple<int, double, int> executar_busca_binaria(const std::vector<T>& vetor, const T& alvo);
 
 
 /*======================*/
