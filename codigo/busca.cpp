@@ -23,14 +23,14 @@ int busca_binaria(const std::vector<T>& vetor, const T& alvo) {
     int dir = static_cast<int>(vetor.size()) - 1;
 
     while (esq <= dir) {
-        int meio = esq + (dir - esq) / 2; // Ponto médio (evita overflow)
+        int meio = esq + (dir - esq) / 2;   // Ponto médio (evita overflow)
 
         if (vetor[meio] == alvo) {
-            return meio; // Elemento encontrado
+            return meio;                    // Elemento encontrado
         } else if (vetor[meio] < alvo) {
-            esq = meio + 1; // Busca na metade direita
+            esq = meio + 1;                 // Busca na metade direita
         } else {
-            dir = meio - 1; // Busca na metade esquerda
+            dir = meio - 1;                 // Busca na metade esquerda
         }
     }
     return -1; // Não encontrado
@@ -44,8 +44,8 @@ int busca_binaria(const std::vector<T>& vetor, const T& alvo) {
 template <typename T>
 std::pair<int, double> executar_busca_sequencial(const std::vector<T>& vetor, const T& alvo) {
     auto inicio = std::chrono::high_resolution_clock::now(); // Marca o início
-    int posicao = busca_sequencial(vetor, alvo); // Executa a busca
-    auto fim = std::chrono::high_resolution_clock::now(); // Marca o fim
+    int posicao = busca_sequencial(vetor, alvo);             // Executa a busca
+    auto fim = std::chrono::high_resolution_clock::now();    // Marca o fim
 
     // Calcula a duração em segundos
     std::chrono::duration<double, std::milli> duracao = fim - inicio;
@@ -94,9 +94,9 @@ std::vector<float> ler_arquivo(const std::string& caminho) {
     }
 
     // Obtém o tamanho do arquivo
-    arquivo.seekg(0, std::ios::end); // Vai para o final
+    arquivo.seekg(0, std::ios::end);          // Vai para o final
     std::streampos tamanho = arquivo.tellg(); // Obtém a posição (tamanho)
-    arquivo.seekg(0, std::ios::beg); // Volta para o início
+    arquivo.seekg(0, std::ios::beg);          // Volta para o início
 
     // Calcula quantos floats existem no arquivo
     size_t num_floats = tamanho / sizeof(float);

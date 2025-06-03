@@ -26,7 +26,7 @@ void mostrarMenu() {
     std::cout << "\n  ➤ Escolha uma opção: ";}
 
 int main() {
-    vector<float> dados; //vetor que lê os dados (leitura será feita dentro dos casos de escolha)
+    vector<float> dados; // Vetor que lê os dados (leitura será feita dentro dos casos de escolha).
 
     int escolha;
     
@@ -41,7 +41,7 @@ int main() {
                 case 1: {
                     dados = ler_arquivo("../dados/pequeno.bin");
                     Contador c;
-                    auto inicio = std::chrono::high_resolution_clock::now();
+                    auto inicio = std::chrono::high_resolution_clock::now(); // Início do cronômetro
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/pequeno.bin");
@@ -67,15 +67,16 @@ int main() {
                         medirTempo("InsertionSort", InsertionSort, copia, "../dados/pequeno.bin");
                         salvar_arquivo("../resultados/InsertionPequeno.bin", copia);
                     }
-                    auto fim = std::chrono::high_resolution_clock::now();
-                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
-                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    auto fim = std::chrono::high_resolution_clock::now(); // Fim do cronômetro
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio); // Cálculo da duração completa (em segundos).
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio); // Cálculo da duração completa (em milisegundos).
                     cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
                          << duracao2.count() << "ms)" << endl;
                     
 
                     vector<float> copia = dados;
                     
+                    // Definição do valor alvo.
                     float alvo = dados[dados.size() / 2];
                     cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
@@ -89,6 +90,7 @@ int main() {
                     // Ordenar antes da busca binária
                     SelectionSort(copia.data(), copia.size(), c);
 
+                    // Busca Binária
                     auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
                     if (posBin != -1)
                         cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
@@ -101,7 +103,7 @@ int main() {
                 case 2: {
                     dados = ler_arquivo("../dados/medio.bin");
                     Contador c;
-                    auto inicio = std::chrono::high_resolution_clock::now();
+                    auto inicio = std::chrono::high_resolution_clock::now(); // Início do cronômetro
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/medio.bin");
@@ -128,13 +130,14 @@ int main() {
                         salvar_arquivo("../resultados/InsertionMedio.bin", copia);
                     }
                     auto fim = std::chrono::high_resolution_clock::now();
-                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
-                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio); // Cálculo da duração completa (em segundos).
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio); // Cálculo da duração completa (em milisegundos).
                     cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
                          << duracao2.count() << "ms)" << endl;
 
                     vector<float> copia = dados;
                     
+                    // Definição do valor alvo.
                     float alvo = dados[dados.size() / 2];
                     cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
@@ -148,6 +151,7 @@ int main() {
                     // Ordenar antes da busca binária
                     SelectionSort(copia.data(), copia.size(), c);
 
+                    // Busca Binária
                     auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
                     if (posBin != -1)
                         cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
@@ -161,7 +165,7 @@ int main() {
                     
                     dados = ler_arquivo("../dados/grande.bin");
                     Contador c;
-                    auto inicio = std::chrono::high_resolution_clock::now();
+                    auto inicio = std::chrono::high_resolution_clock::now(); // Início do cronômetro
                     {   
                         vector<float> copia = dados;
                         medirTempo("SelectionSort", SelectionSort, copia, "../dados/grande.bin");
@@ -188,13 +192,14 @@ int main() {
                         salvar_arquivo("../resultados/InsertionGrande.bin", copia);
                     }
                     auto fim = std::chrono::high_resolution_clock::now();
-                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio);
-                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+                    auto duracao1 = std::chrono::duration_cast<std::chrono::seconds>(fim - inicio); // Cálculo da duração completa (em segundos).
+                    auto duracao2 = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio); // Cálculo da duração completa (em milisegundos).
                     cout << "\nDuração completa das ordenações: " << duracao1.count() << "s (" 
                          << duracao2.count() << "ms)" << endl;
 
                     vector<float> copia = dados;
                     
+                    // Definição do valor alvo.
                     float alvo = dados[dados.size() / 2];
                     cout << "\nValor alvo (do meio do vetor): " << alvo << endl;
 
@@ -208,6 +213,7 @@ int main() {
                     // Ordenar antes da busca binária
                     SelectionSort(copia.data(), copia.size(), c);
 
+                    // Busca Binária
                     auto [posBin, tempoBin] = executar_busca_binaria(copia, alvo);
                     if (posBin != -1)
                         cout << "Busca Binária: encontrado na posição " << posBin << " em " << tempoBin << "s\n";
