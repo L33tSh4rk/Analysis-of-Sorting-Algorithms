@@ -18,7 +18,8 @@ void mostrarMenu(){
     std::cout << "1. Arquivo Pequeno" << std::endl;
     std::cout << "2. Arquivo Médio" << std::endl;
     std::cout << "3. Arquivo Grande" << std::endl;
-    std::cout << "4. Gerar Arquivos de Dados" << std::endl;
+    std::cout << "==================" << std::endl;
+    std::cout << "4. Gerar Arquivos de Dados Novamente" << std::endl;
     std::cout << "5. Sair" << std::endl;
     
     std::cout << "Escolha o arquivo que deseja ler: " << std::endl;
@@ -117,15 +118,35 @@ int main() {
                 }
 
                 case 2: {
-                    dados = ler_arquivo("../dados/pequeno.bin");
+                    dados = ler_arquivo("../dados/medio.bin");
                     Contador c;
-                    vector<float> copia(dados.begin(), dados.end());
-                    
-                    medirTempo("SelectionSort", SelectionSort, copia, "../dados/medio.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/medio.bin");
-                    medirTempo("BubbleSort", BubbleSort, copia, "../dados/medio.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/medio.bin");
-                    medirTempo("InsertionSort", InsertionSort, copia, "../dados/medio.bin");
+                    {   
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSort", SelectionSort, copia, "../dados/medio.bin");
+                        salvar_arquivo("../resultados/SelectionMedio.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/medio.bin");
+                        salvar_arquivo("../resultados/SelectionOptMedio.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSort", BubbleSort, copia, "../dados/medio.bin");
+                        salvar_arquivo("../resultados/BubbleMedio.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSortOptimized", BubbleSortOpt, copia, "../dados/medio.bin");
+                        salvar_arquivo("../resultados/BubbleOptMedio.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("InsertionSort", InsertionSort, copia, "../dados/medio.bin");
+                        salvar_arquivo("../resultados/InsertionMedio.bin", copia);
+                    }
+
+                    vector<float> copia = dados;
                     
                     float alvo;
                     cout << "\nDigite o valor a ser buscado: ";
@@ -151,15 +172,36 @@ int main() {
                 }
 
                 case 3: {
-                    dados = ler_arquivo("../dados/pequeno.bin");
-                    Contador c;
-                    vector<float> copia(dados.begin(), dados.end());
                     
-                    medirTempo("SelectionSort", SelectionSort, copia, "../dados/grande.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/grande.bin");
-                    medirTempo("BubbleSort", BubbleSort, copia, "../dados/grande.bin");
-                    medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/grande.bin");
-                    medirTempo("InsertionSort", InsertionSort, copia, "../dados/grande.bin");
+                    dados = ler_arquivo("../dados/grande.bin");
+                    Contador c;
+                    {   
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSort", SelectionSort, copia, "../dados/grande.bin");
+                        salvar_arquivo("../resultados/SelectionGrande.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("SelectionSortOptimized", SelectionSortOpt, copia, "../dados/grande.bin");
+                        salvar_arquivo("../resultados/SelectionOptGrande.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSort", BubbleSort, copia, "../dados/grande.bin");
+                        salvar_arquivo("../resultados/BubbleGrande.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("BubbleSortOptimized", BubbleSortOpt, copia, "../dados/grande.bin");
+                        salvar_arquivo("../resultados/BubbleOptGrande.bin", copia);
+                    }
+                    {
+                        vector<float> copia = dados;
+                        medirTempo("InsertionSort", InsertionSort, copia, "../dados/grande.bin");
+                        salvar_arquivo("../resultados/InsertionGrande.bin", copia);
+                    }
+
+                    vector<float> copia = dados;
                     
                     float alvo;
                     cout << "\nDigite o valor a ser buscado: ";
@@ -188,18 +230,12 @@ int main() {
                     gerar();
                     break;
                 }
-                case 5: {
-                    cout << "Saindo do Programa..." << endl;
-                    break;
-                }
-
-                default: {
-                    cout << "Opção Invalida" << endl;
-                }
+                
             }
         }
 
-    } while (escolha != 4);
+    } while (escolha != 5);
+    std::cout << "Saindo do programa ..." << std::endl;
 
     return 0;
 }
