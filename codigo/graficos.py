@@ -47,19 +47,35 @@ for arq in arquivos:
     plt.show()
 
 
-# === Parte 2: Gráfico único para buscas (Sequencial vs Binária) ===
+# === Parte 2: Gráficos separados para buscas (Sequencial vs Binária) ===
 df_buscas = pd.read_csv("buscas.csv")
 
+# --- Tempo x Tipo de Busca ---
 plt.figure(figsize=(10,8))
 for tipo in df_buscas["Tipo"].unique():
     subset = df_buscas[df_buscas["Tipo"] == tipo]
     plt.plot(subset["Arquivo"], subset["Tempo(ms)"], marker='o', label=tipo)
 
-plt.title("Comparação: Busca Sequencial vs Binária (todos os arquivos)")
+plt.title("Tempo de Execução - Busca Sequencial vs Binária")
 plt.xlabel("Arquivo")
 plt.ylabel("Tempo (ms)")
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("../images/grafico_buscas_geral.png")
+plt.savefig("../images/grafico_busca_tempo.png")
+plt.show()
+
+# --- Comparações x Tipo de Busca ---
+plt.figure(figsize=(10,8))
+for tipo in df_buscas["Tipo"].unique():
+    subset = df_buscas[df_buscas["Tipo"] == tipo]
+    plt.plot(subset["Arquivo"], subset["Comparacoes"], marker='s', label=tipo)
+
+plt.title("Número de Comparações - Busca Sequencial vs Binária")
+plt.xlabel("Arquivo")
+plt.ylabel("Comparações")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("../images/grafico_busca_comparacoes.png")
 plt.show()
